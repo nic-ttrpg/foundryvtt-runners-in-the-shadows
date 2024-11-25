@@ -5,7 +5,7 @@
   "version": "0.0.2",
   "compatibility": {
     "minimum": 11,
-    "verified": "12.324"
+    "verified": "12.331"
   },
   "url": "https://github.com/nic-ttrpg/foundryvtt-runners-in-the-shadows/",
   "manifest": "https://raw.githubusercontent.com/nic-ttrpg/foundryvtt-runners-in-the-shadows/main/system.json",

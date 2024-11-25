@@ -7,9 +7,9 @@
     "minimum": 11,
     "verified": "12.324"
   },
-  "url": "https://github.com/satrojan/foundryvtt-runners-in-the-shadows/",
-  "manifest": "https://raw.githubusercontent.com/satrojan/foundryvtt-runners-in-the-shadows/dev2/system.json",
-  "download": "https://github.com/satrojan/foundryvtt-runners-in-the-shadows/archive/refs/heads/dev2.zip",
+  "url": "https://github.com/nic-ttrpg/foundryvtt-runners-in-the-shadows/",
+  "manifest": "https://raw.githubusercontent.com/nic-ttrpg/foundryvtt-runners-in-the-shadows/main/system.json",
+  "download": "https://github.com/nic-ttrpg/foundryvtt-runners-in-the-shadows/archive/refs/heads/main.zip",
   "authors": [
     { "name": "megastruktur" },
     { "name": "drewg13" },

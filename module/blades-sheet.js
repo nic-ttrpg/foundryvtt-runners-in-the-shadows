@@ -55,7 +55,7 @@ export class BladesSheet extends ActorSheet {
 
       html += `<input id="select-item-${e._id}" type="${input_type}" name="select_items" value="${e._id}">`;
       html += `<label class="flex-horizontal" for="select-item-${e._id}">`;
-      html += `${game.i18n.localize(e.name)} ${addition_price_load} <i class="tooltip fas fa-question-circle"><span class="tooltiptext">${game.i18n.localize(e.system.description)}</span></i>`;
+      html += `${game.i18n.localize(e.name)} ${addition_price_load} <i class="fas fa-question-circle" data-tooltip="${game.i18n.localize(e.system.description)}"></i>`;
       html += `</label>`;
     });
 
@@ -96,7 +96,13 @@ export class BladesSheet extends ActorSheet {
       items_to_add.push(items.find(e => e._id === $(this).val()));
     });
 
-    await Item.create(items_to_add, {parent: this.document});
+    if (item_type == "crew") {
+		let actor = this.actor;
+		await BladesHelpers.addCrew(actor,items_to_add[0]);
+	}
+	else {
+		await Item.create(items_to_add, {parent: this.document});
+	}
   }
   /* -------------------------------------------- */
 

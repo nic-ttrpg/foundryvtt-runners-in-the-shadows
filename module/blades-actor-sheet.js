@@ -73,14 +73,15 @@ export class BladesActorSheet extends BladesSheet {
 
     sheetData.system.description = await TextEditor.enrichHTML(sheetData.system.description, {secrets: sheetData.owner, async: true});
 
-    // catch unmigrated actor data
-    for( const a in sheetData.system.attributes ) {
-      for( const s in sheetData.system.attributes[a].skills ) {
-        if( sheetData.system.attributes[a].skills[s].max === undefined ){
-          sheetData.system.attributes[a].skills[s].max = 4;
-        }
-      }
-    }
+    // catch unmigrated actor data and apply the Mastery crew ability to attribute maxes
+    sheetData.system.attributes = this.actor.getComputedAttributes();
+	
+    //check for additional stress and trauma from crew sources
+    sheetData.system.stress.max = this.actor.getMaxStress();
+    sheetData.system.trauma.max = this.actor.getMaxTrauma();
+
+	//check for healing minimums
+	sheetData.system.healing_clock.value = this.actor.getHealingMin();
 
     return sheetData;
   }
@@ -111,6 +112,9 @@ export class BladesActorSheet extends BladesSheet {
     switch (droppedEntityFull.type) {
       case "npc":
         await BladesHelpers.addAcquaintance(this.actor, droppedEntityFull);
+        break;
+	  case "crew":
+        await BladesHelpers.addCrew(this.actor, droppedEntityFull);
         break;
       case "item":
         break;
@@ -193,6 +197,15 @@ export class BladesActorSheet extends BladesSheet {
 	  BladesHelpers.import_pb_contacts(this.actor, playbook);
 
     });
+	
+		// Remove Crew from character sheet
+    html.find('.crew-delete').click(ev => {
+	  const element = $(ev.currentTarget).parents(".item");
+	  let crewId = element.data("itemId");
+	  BladesHelpers.removeCrew(this.actor, crewId);
+    });
+
+	
   }
 
 }

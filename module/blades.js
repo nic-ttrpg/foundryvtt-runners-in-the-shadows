@@ -114,6 +114,266 @@ Hooks.once("init", async function() {
 
   });
 
+  // Lost Essence Counter
+  Handlebars.registerHelper('lostessencecounter', function(selected, options) {
+
+    let html = options.fn(this);
+    var eyes_count = 0;
+    var ears_count = 0;
+    var olfactif_count = 0;
+    var neural_count = 0;
+    var loss_essence_count = 0;
+    var senses_implant_count = 0;
+    var left_arm_count = 0;
+    var right_arm_count = 0;
+    var vitals_count = 0;
+    var compartment_count = 0;
+    var left_leg_count = 0;
+    var right_leg_count = 0;
+    var skin_count = 0;
+    var skeleton_count = 0;
+    let senses_type = selected.senses.type;
+    let eyes_implant = selected.senses.eyes.list;
+    let ears_implant = selected.senses.ears.list;
+    let olfactif_implant = selected.senses.olfactif.list;
+    let neural_implant = selected.neural.list;
+    let neural_type = selected.neural.type;
+    let arms_type = selected.arms.type;
+    let left_arm_implant = selected.arms.left.list;
+    let right_arm_implant = selected.arms.right.list;
+    let vitals_implant = selected.vitals.list;
+    let vitals_type = selected.vitals.type;
+    let left_compartment_implant = selected.compartment.left.list;
+    let right_compartment_implant = selected.compartment.right.list;
+    let legs_type = selected.legs.type;
+    let left_leg_implant = selected.legs.left.list;
+    let right_leg_implant = selected.legs.right.list;
+    let skin_implant = selected.skin.list;
+    let skin_type = selected.skin.type;
+    let skeleton_implant = selected.skeleton.list;
+    let skeleton_type = selected.skeleton.type;
+    // Processing Sense Implants
+    for (const feature in eyes_implant) {
+      if (eyes_implant[feature] === true) {
+        if (feature !== "lifelike"){
+          eyes_count++; 
+        }
+        else{
+          if(senses_type === "cybernetic"){
+            eyes_count++;
+          }
+        }
+      }
+    }
+    for (const feature in ears_implant) {
+      if (ears_implant[feature] === true) {
+        if (feature !== "lifelike"){
+          ears_count++; 
+        }
+        else{
+          if(senses_type === "cybernetic"){
+            ears_count++;
+          }
+        }
+      }
+    }
+    for (const feature in olfactif_implant) {
+      if (olfactif_implant[feature] === true) {
+        if (feature !== "lifelike"){
+          olfactif_count++; 
+        }
+        else{
+          if(senses_type === "cybernetic"){
+            olfactif_count++;
+          }
+        }
+      }
+    }
+
+    senses_implant_count = Math.min (eyes_count,1) + Math.min (ears_count,1) + Math.min(olfactif_count,1);
+    if(senses_type === "cybernetic"){
+      loss_essence_count = loss_essence_count + Math.max(senses_implant_count - 1,0);
+      }
+    else{
+      loss_essence_count = loss_essence_count + Math.max(senses_implant_count - 2,0);
+    }
+
+    // Processing Neural Implants
+    for (const feature in neural_implant) {
+      if (neural_implant[feature] === true) {
+        neural_count++;
+        if (feature === "control rig" || feature === "reflexes"){
+          neural_count++;
+        }
+      }
+    }
+    
+    if(neural_type === "cybernetic" && neural_count>2){
+      loss_essence_count++;
+      }
+    if(neural_type !== "cybernetic" && neural_count>3){
+      loss_essence_count++;
+      }
+
+    // Processing Arms Implants
+    for (const feature in left_arm_implant) {
+      if (left_arm_implant[feature] === true) {
+        if (feature !== "lifelike"){
+          left_arm_count++; 
+        }
+        else{
+          if(arms_type === "cybernetic"){
+            left_arm_count++;
+          }
+        }
+      }
+    }
+    for (const feature in right_arm_implant) {
+      if (right_arm_implant[feature] === true) {
+        if (feature !== "lifelike"){
+          right_arm_count++; 
+        }
+        else{
+          if(arms_type === "cybernetic"){
+            right_arm_count++;
+          }
+        }
+      }
+    }
+    if (arms_type === "cybernetic"){
+      if (left_arm_count>1){
+        loss_essence_count++;
+      }
+      if (right_arm_count>1){
+        loss_essence_count++;
+      }
+    }
+    else{
+      if (left_arm_count>2){
+        loss_essence_count++;
+      }
+      if (right_arm_count>2){
+        loss_essence_count++;
+      }
+    }
+
+    // Processing Vital Organs Implants
+    for (const feature in vitals_implant) {
+      if (vitals_implant[feature] === true) {
+        vitals_count++;
+      }
+    }
+    
+    if(vitals_type === "cybernetic" && vitals_count>2){
+      loss_essence_count++;
+      }
+    if(vitals_type !== "cybernetic" && vitals_count>3){
+      loss_essence_count++;
+      }
+    
+    // Processing Compartment Implants
+    for (const feature in left_compartment_implant) {
+      if (left_compartment_implant[feature] === true) {
+        compartment_count++;
+      }
+    }
+
+    for (const feature in right_compartment_implant) {
+      if (right_compartment_implant[feature] === true) {
+        compartment_count++;
+      }
+    }
+    
+    if(compartment_count>1){
+      loss_essence_count++;
+     }
+    
+    // Processing Legs Implants
+    for (const feature in left_leg_implant) {
+      if (left_leg_implant[feature] === true) {
+        if (feature !== "lifelike"){
+          left_leg_count++; 
+        }
+        else{
+          if(legs_type === "cybernetic"){
+            left_leg_count++;
+          }
+        }
+      }
+    }
+    for (const feature in right_leg_implant) {
+      if (right_leg_implant[feature] === true) {
+        if (feature !== "lifelike"){
+          right_leg_count++; 
+        }
+        else{
+          if(legs_type === "cybernetic"){
+            right_leg_count++;
+          }
+        }
+      }
+    }
+    if (legs_type === "cybernetic"){
+      if (left_leg_count>1){
+        loss_essence_count++;
+      }
+      if (right_leg_count>1){
+        loss_essence_count++;
+      }
+    }
+    else{
+      if (left_leg_count>2){
+        loss_essence_count++;
+      }
+      if (right_leg_count>2){
+        loss_essence_count++;
+      }
+    } 
+    // Processing Skin Implants
+    for (const feature in skin_implant) {
+      if (skin_implant[feature] === true) {
+        if (feature !== "lifelike"){
+          skin_count++;
+          if (feature === "chameleon"){
+            skin_count++;
+          }
+        }
+        else{
+          if(skin_type === "cybernetic"){
+            skin_count++;
+          }
+        }
+      }
+    }
+    
+    if(skin_type === "cybernetic" && skin_count>2){
+      loss_essence_count++;
+      }
+    if(skin_type !== "cybernetic" && skin_count>3){
+      loss_essence_count++;
+      }
+    
+    // Processing Skeleton Implants
+    for (const feature in skeleton_implant) {
+      if (skeleton_implant[feature] === true) {
+        skeleton_count++;
+      }
+    }
+    
+    if(skeleton_type === "cybernetic" && skeleton_count>1){
+      loss_essence_count++;
+      }
+    if(skeleton_type !== "cybernetic" && skeleton_count>2){
+      loss_essence_count++;
+      }
+      
+    if (loss_essence_count > 8) loss_essence_count = 8;
+
+    const rgx = new RegExp(' value=\"' + loss_essence_count + '\"');
+    return html.replace(rgx, "$& checked");
+
+  });
+
   // NotEquals handlebar.
   Handlebars.registerHelper('noteq', (a, b, options) => {
     return (a !== b) ? options.fn(this) : '';

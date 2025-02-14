@@ -57,7 +57,7 @@ export class BladesActorSheet extends BladesSheet {
     //look for Mule ability
     // @todo - fix translation.
     sheetData.items.forEach(i => {
-      if (i.type === "ability" && i.name === "(C) Mule") {
+      if (i.type === "ability" && i.name === "(Mc) Mule") {
         mule_present = 1;
       }
     });

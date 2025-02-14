@@ -29,6 +29,99 @@
       "options": ["BITD.TraumaCold", "BITD.TraumaHaunted", "BITD.TraumaObsessed", "BITD.TraumaParanoid", "BITD.TraumaReckless", "BITD.TraumaSoft", "BITD.TraumaUnstable", "BITD.TraumaVicious"],
       "list": []
     },
+    "lost-essence": {
+      "max": 8,
+      "max_default": 8,
+      "value": [0],
+      "name": "RITS.LostEssence",
+      "name_default": "RITS.LostEssence"
+    },
+    "implants": {
+      "senses" :{
+        "type": "",       
+        "features_label":["RITS.Dampening","RITS.Widened","RITS.Heightened","RITS.Lifelike"],
+        "features":["dampening","widened","heightened","lifelike"],
+        "eyes": {
+          "list": [],
+          "description" : "" 
+          },
+        "ears": {
+          "list": [],
+          "description": ""
+          },
+        "olfactif": {
+          "list": [],
+          "description": ""
+          }
+      },
+      "neural" :{
+        "type": "",     
+        "features_label":["RITS.Adrenaline","RITS.HiddenSlot", "RITS.ControlRig","RITS.PheromoneSecretor","RITS.Metabooster","RITS.Reflexes","RITS.SkillJack","RITS.Vocalflex","RITS.PainLimiter"],
+        "features":["adrenaline","hidden slot", "control rig","pheromone secretor","metabooster","reflexes","skilljack","vocalflex","pain limiter"],
+        "list": [],
+        "description" : "" 
+      },
+      "arms" :{
+        "type": "",       
+        "features_label":["RITS.Stronger","RITS.Detachable","RITS.Reach","RITS.Lifelike","RITS.Points"],
+        "features":["stronger","detachable","reach","lifelike","points"],
+        "left": {
+          "list": [],
+          "description" : "" 
+          },
+        "right": {
+          "list": [],
+          "description": ""
+          }
+      },
+      "vitals" :{
+        "type": "",     
+        "features_label":["RITS.Amphibious","RITS.Biorepair", "RITS.Inhaled","RITS.Injected","RITS.Ingested"],
+        "features":["amphibious","biorepair","inhaled","injected","ingested"],
+        "list": [],
+        "description" : "" 
+      },
+      "compartment" :{
+        "type": "cybernetic",     
+        "features_label":["RITS.Compartment"],
+        "features":["compartment"],
+        "left": {
+          "list": [],
+          "description" : "" 
+          },
+        "right": {
+          "list": [],
+          "description": ""
+          } 
+      },
+      "legs" :{
+        "type": "",       
+        "features_label":["RITS.Aquatic","RITS.HighJump","RITS.Swift","RITS.Detachable","RITS.Lifelike"],
+        "features":["aquatic","high jump","swift","detachable","lifelike"],
+        "left": {
+          "list": [],
+          "description" : "" 
+          },
+        "right": {
+          "list": [],
+          "description": ""
+          }
+      },
+      "skin" :{
+        "type": "",     
+        "features_label":["RITS.Acidproof","RITS.Bulletproof", "RITS.Chameleon","RITS.Fireproof","RITS.Grappleproof","RITS.SkinLifelike","RITS.Plating"],
+        "features":["acidproof","bulletproof","chameleon","fireproof","grappleproof","lifelike","plating"],
+        "list": [],
+        "description" : "" 
+      },
+      "skeleton" :{
+        "type": "",     
+        "features_label":["RITS.ExtraLimb","RITS.Omnidirectional", "RITS.Reinforced","RITS.Turret"],
+        "features":["extra limb","omnidirectional","reinforced","turret"],
+        "list": [],
+        "description" : "" 
+      }
+    },
     "healing-clock": [0],
     "experience": [0],
     "experience_max": 10,

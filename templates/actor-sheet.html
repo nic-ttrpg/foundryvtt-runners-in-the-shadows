@@ -266,6 +266,7 @@
       <nav class="tabs flex-horizontal">
         <a class="item" data-tab="abilities">{{localize "BITD.Abilities"}}</a>
         <a class="item" data-tab="loadout">{{localize "BITD.Loadout"}}</a>
+        <a class="item" data-tab="implants">{{localize "RITS.Implants"}}</a>
 		<a class="item" data-tab="contacts">{{localize 'BITD.Contacts'}}</a>
         <a class="item" data-tab="character-notes">{{localize "BITD.Notes"}}</a>
         {{#if isGM}}
@@ -342,6 +343,250 @@
         </div>
         <textarea rows="13" name="system.description">{{{system.description}}}</textarea>
       </div>
+
+      {{!-- Implants --}}
+	  <div id="character-{{_id}}-implants" class="tab flex-vertical implants" data-tab="implants">
+      <div class="label-stripe">
+        <p>{{localize "RITS.Implants"}}</p>
+        <div id="character-{{_id}}-lost-essence" class="lost-essence">
+          {{#lostessencecounter system.implants}}
+          <label class="label-stripe" for="character-{{_id}}-lost-essence-counter-0">{{localize system.lost-essence.name}}</label>
+         
+          <input type="radio" id="character-{{_id}}-lost-essence-counter-0" name="system.lost-essence.value" value="0">
+  
+          {{#times_from_1 system.lost-essence.max}}
+            <input type="radio" id="character-{{../_id}}-lost-essence-counter-{{this}}" name="system.lost-essence.value" value="{{this}}" disabled>
+            <label for="character-{{../_id}}-lost-essence-{{this}}"></label>
+          {{/times_from_1}}
+          {{/lostessencecounter}}
+        </div>
+      </div>
+      <div id="character-{{_id}}-senses" class="flex-horizontal">
+        <p style="font-weight: bold; text-transform: uppercase">{{localize "RITS.SensesLabel"}}</p>
+        <p style="font-style: italic; font-size: 12px">{{localize "RITS.SensesText"}}</p>
+        <span style="width:150px">
+          <label for="senses-type">{{localize "RITS.ImplantsType"}}:</label>
+          <select id="senses-type" name="system.implants.senses.type">
+            <option value="cybernetic" {{#noteq system.implants.senses.type "bioengineered"}} selected {{/noteq}}>{{localize "RITS.Cybernetic"}}</option>
+            <option value="bioengineered" {{#noteq system.implants.senses.type "cybernetic"}} selected {{/noteq}}>{{localize "RITS.Bioengineered"}}</option>
+          </select>
+        </span>
+      </div>
+      <div id="character-{{_id}}-senses-eyes-implants-list" class="implants-list">
+        <label class="implants-label">{{localize "RITS.SensesEyesLabel"}}</label>
+        {{#each system.implants.senses.features}}
+        <label>
+          <input type="checkbox" data-dType="Boolean" name="system.implants.senses.eyes.list.{{this}}" value={{this}} {{checked (lookup @root.system.implants.senses.eyes.list this)}}>
+          <span class="checkmark">{{localize (lookup @root.system.implants.senses.features_label @index)}}</span>
+        </label>
+        {{/each}}
+        <input type="text" id="character-{{_id}}-implants-senses-eyes-description" class="implants-description" name="system.implants.senses.eyes.description" value="{{{system.implants.senses.eyes.description}}}">
+      </div>
+      <div id="character-{{_id}}-senses-ears-implants-list" class="implants-list">
+        <label class="implants-label">{{localize "RITS.SensesEarsLabel"}}</label>
+        {{#each system.implants.senses.features}}
+        <label>
+          <input type="checkbox" data-dType="Boolean" name="system.implants.senses.ears.list.{{this}}" value={{this}} {{checked (lookup @root.system.implants.senses.ears.list this)}}>
+          <span class="checkmark">{{localize (lookup @root.system.implants.senses.features_label @index)}}</span>
+        </label>
+        {{/each}}
+        <input type="text" id="character-{{_id}}-implants-senses-ears-description" class="implants-description" name="system.implants.senses.ears.description" value="{{{system.implants.senses.ears.description}}}"> 
+      </div>
+      <div id="character-{{_id}}-senses-olfactif-implants-list" class="implants-list">
+        <label class="implants-label">{{localize "RITS.SensesOlfactifLabel"}}</label>
+        {{#each system.implants.senses.features}}
+        <label>
+          <input type="checkbox" data-dType="Boolean" name="system.implants.senses.olfactif.list.{{this}}" value={{this}} {{checked (lookup @root.system.implants.senses.olfactif.list this)}}>
+          <span class="checkmark">{{localize (lookup @root.system.implants.senses.features_label @index)}}</span>
+        </label>
+        {{/each}}
+        <input type="text" id="character-{{_id}}-implants-senses-olfactif-description" class="implants-description" name="system.implants.senses.olfactif.description" value="{{{system.implants.senses.olfactif.description}}}">
+      </div>
+      <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+      <div id="character-{{_id}}-neural" class="flex-horizontal">
+        <p style="font-weight: bold; text-transform: uppercase">{{localize "RITS.NeuralLabel"}}</p>
+        <p style="font-style: italic; font-size: 12px">{{localize "RITS.NeuralText"}}</p>
+        <span style="width:150px">
+          <label for="neural-type">{{localize "RITS.ImplantsType"}}:</label>
+          <select id="neural-type" name="system.implants.neural.type">
+            <option value="cybernetic" {{#noteq system.implants.neural.type "bioengineered"}} selected {{/noteq}}>{{localize "RITS.Cybernetic"}}</option>
+            <option value="bioengineered" {{#noteq system.implants.neural.type "cybernetic"}} selected {{/noteq}}>{{localize "RITS.Bioengineered"}}</option>
+          </select>
+        </span>
+      </div>
+      <div id="character-{{_id}}-neural-implants-list-container" class="flex-horizontal" style="width: 480px">
+        <div id="character-{{_id}}-neural-implants-list" class="implants-list">
+          {{#each system.implants.neural.features}}
+          <label>
+            <input type="checkbox" data-dType="Boolean" name="system.implants.neural.list.{{this}}" value={{this}} {{checked (lookup @root.system.implants.neural.list this)}}>
+            <span class="checkmark">{{localize (lookup @root.system.implants.neural.features_label @index)}}</span>
+          </label>
+          {{/each}}
+        </div>
+        <input type="text" id="character-{{_id}}-implants-neural-description" class="implants-description" name="system.implants.neural.description" value="{{{system.implants.neural.description}}}">
+      </div>
+      <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+      <div id="character-{{_id}}-arms" class="flex-horizontal">
+        <p style="font-weight: bold; text-transform: uppercase">{{localize "RITS.ArmsLabel"}}</p>
+        <p style="font-style: italic; font-size: 12px; width: 240px">{{localize "RITS.ArmsText"}}</p>
+        <span style="width:150px">
+          <label for="arms-type">{{localize "RITS.ImplantsType"}}:</label>
+          <select id="arms-type" name="system.implants.arms.type">
+            <option value="cybernetic" {{#noteq system.implants.arms.type "bioengineered"}} selected {{/noteq}}>{{localize "RITS.Cybernetic"}}</option>
+            <option value="bioengineered" {{#noteq system.implants.arms.type "cybernetic"}} selected {{/noteq}}>{{localize "RITS.Bioengineered"}}</option>
+          </select>
+        </span>
+      </div>
+      <div id="character-{{_id}}-arms-left-implants-list" class="implants-list">
+        <label class="implants-label">{{localize "RITS.LeftArmLabel"}}</label>
+        {{#each system.implants.arms.features}}
+        <label>
+          <input type="checkbox" data-dType="Boolean" name="system.implants.arms.left.list.{{this}}" value={{this}} {{checked (lookup @root.system.implants.arms.left.list this)}}>
+          <span class="checkmark">{{localize (lookup @root.system.implants.arms.features_label @index)}}</span>
+        </label>
+        {{/each}}
+        <input type="text" id="character-{{_id}}-implants-arms-left-description" class="implants-description" name="system.implants.arms.left.description" value="{{{system.implants.arms.left.description}}}">
+      </div>
+      <div id="character-{{_id}}-arms-right-implants-list" class="implants-list">
+        <label class="implants-label">{{localize "RITS.RightArmLabel"}}</label>
+        {{#each system.implants.arms.features}}
+        <label>
+          <input type="checkbox" data-dType="Boolean" name="system.implants.arms.right.list.{{this}}" value={{this}} {{checked (lookup @root.system.implants.arms.right.list this)}}>
+          <span class="checkmark">{{localize (lookup @root.system.implants.arms.features_label @index)}}</span>
+        </label>
+        {{/each}}
+        <input type="text" id="character-{{_id}}-implants-arms-right-description" class="implants-description" name="system.implants.arms.right.description" value="{{{system.implants.arms.right.description}}}">
+      </div>
+      <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+      <div id="character-{{_id}}-vitals" class="flex-horizontal">
+        <p style="font-weight: bold; text-transform: uppercase">{{localize "RITS.VitalsLabel"}}</p>
+        <p style="font-style: italic; font-size: 12px">{{localize "RITS.VitalsText"}}</p>
+        <span style="width:150px">
+          <label for="vitals-type">{{localize "RITS.ImplantsType"}}:</label>
+          <select id="vitals-type" name="system.implants.vitals.type">
+            <option value="cybernetic" {{#noteq system.implants.vitals.type "bioengineered"}} selected {{/noteq}}>{{localize "RITS.Cybernetic"}}</option>
+            <option value="bioengineered" {{#noteq system.implants.vitals.type "cybernetic"}} selected {{/noteq}}>{{localize "RITS.Bioengineered"}}</option>
+          </select>
+        </span>
+      </div>
+      <div id="character-{{_id}}-vitals-implants-list-container" class="flex-horizontal" style="width: 480px">
+        <div id="character-{{_id}}-vitals-implants-list" class="implants-list">
+          {{#each system.implants.vitals.features}}
+          <label>
+            <input type="checkbox" data-dType="Boolean" name="system.implants.vitals.list.{{this}}" value={{this}} {{checked (lookup @root.system.implants.vitals.list this)}}>
+            <span class="checkmark">{{localize (lookup @root.system.implants.vitals.features_label @index)}}</span>
+          </label>
+          {{/each}}
+        </div>
+        <input type="text" id="character-{{_id}}-implants-vitals-description" class="implants-description" name="system.implants.vitals.description" value="{{{system.implants.vitals.description}}}">
+      </div>
+      <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+      <div id="character-{{_id}}-compartment" class="flex-horizontal">
+        <p style="font-weight: bold; text-transform: uppercase">{{localize "RITS.CompartmentLabel"}}</p>
+        <span style="width:150px">
+          <label>{{localize "RITS.ImplantsType"}}: {{localize "RITS.Cybernetic"}}</label>
+        </span>
+      </div>
+      <div id="character-{{_id}}-compartment-left-implants-list" class="implants-list">
+        <label class="implants-label">{{localize "RITS.LeftCompartmentLabel"}}</label>
+        {{#each system.implants.compartment.features}}
+        <label>
+          <input type="checkbox" data-dType="Boolean" name="system.implants.compartment.left.list.{{this}}" value={{this}} {{checked (lookup @root.system.implants.compartment.left.list this)}}>
+          <span class="checkmark">{{localize (lookup @root.system.implants.compartment.features_label @index)}}</span>
+        </label>
+        {{/each}}
+        <input type="text" id="character-{{_id}}-implants-compartment-left-description" class="implants-description" name="system.implants.compartment.left.description" value="{{{system.implants.compartment.left.description}}}">
+      </div>
+      <div id="character-{{_id}}-compartment-right-implants-list" class="implants-list">
+        <label class="implants-label">{{localize "RITS.RightCompartmentLabel"}}</label>
+        {{#each system.implants.compartment.features}}
+        <label>
+          <input type="checkbox" data-dType="Boolean" name="system.implants.compartment.right.list.{{this}}" value={{this}} {{checked (lookup @root.system.implants.compartment.right.list this)}}>
+          <span class="checkmark">{{localize (lookup @root.system.implants.compartment.features_label @index)}}</span>
+        </label>
+        {{/each}}
+        <input type="text" id="character-{{_id}}-implants-compartment-right-description" class="implants-description" name="system.implants.compartment.right.description" value="{{{system.implants.compartment.right.description}}}">
+      </div>
+      <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+      <div id="character-{{_id}}-legs" class="flex-horizontal">
+        <p style="font-weight: bold; text-transform: uppercase">{{localize "RITS.LegsLabel"}}</p>
+        <p style="font-style: italic; font-size: 12px; width: 230px">{{localize "RITS.LegsText"}}</p>
+        <span style="width:150px">
+          <label for="legs-type">{{localize "RITS.ImplantsType"}}:</label>
+          <select id="legs-type" name="system.implants.legs.type">
+            <option value="cybernetic" {{#noteq system.implants.legs.type "bioengineered"}} selected {{/noteq}}>{{localize "RITS.Cybernetic"}}</option>
+            <option value="bioengineered" {{#noteq system.implants.legs.type "cybernetic"}} selected {{/noteq}}>{{localize "RITS.Bioengineered"}}</option>
+          </select>
+        </span>
+      </div>
+      <div id="character-{{_id}}-legs-left-implants-list" class="implants-list">
+        <label class="implants-label">{{localize "RITS.LeftLegLabel"}}</label>
+        {{#each system.implants.legs.features}}
+        <label>
+          <input type="checkbox" data-dType="Boolean" name="system.implants.legs.left.list.{{this}}" value={{this}} {{checked (lookup @root.system.implants.legs.left.list this)}}>
+          <span class="checkmark">{{localize (lookup @root.system.implants.legs.features_label @index)}}</span>
+        </label>
+        {{/each}}
+        <input type="text" id="character-{{_id}}-implants-legs-left-description" class="implants-description" name="system.implants.legs.left.description" value="{{{system.implants.legs.left.description}}}">
+      </div>
+      <div id="character-{{_id}}-legs-right-implants-list" class="implants-list">
+        <label class="implants-label">{{localize "RITS.RightLegLabel"}}</label>
+        {{#each system.implants.legs.features}}
+        <label>
+          <input type="checkbox" data-dType="Boolean" name="system.implants.legs.right.list.{{this}}" value={{this}} {{checked (lookup @root.system.implants.legs.right.list this)}}>
+          <span class="checkmark">{{localize (lookup @root.system.implants.legs.features_label @index)}}</span>
+        </label>
+        {{/each}}
+        <input type="text" id="character-{{_id}}-implants-legs-right-description" class="implants-description" name="system.implants.legs.right.description" value="{{{system.implants.legs.right.description}}}">
+      </div>
+      <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+      <div id="character-{{_id}}-skin" class="flex-horizontal">
+        <p style="font-weight: bold; text-transform: uppercase">{{localize "RITS.SkinLabel"}}</p>
+        <p style="font-style: italic; font-size: 12px">{{localize "RITS.SkinText"}}</p>
+        <span style="width:150px">
+          <label for="skin-type">{{localize "RITS.ImplantsType"}}:</label>
+          <select id="skin-type" name="system.implants.skin.type">
+            <option value="cybernetic" {{#noteq system.implants.skin.type "bioengineered"}} selected {{/noteq}}>{{localize "RITS.Cybernetic"}}</option>
+            <option value="bioengineered" {{#noteq system.implants.skin.type "cybernetic"}} selected {{/noteq}}>{{localize "RITS.Bioengineered"}}</option>
+          </select>
+        </span>
+      </div>
+      <div id="character-{{_id}}-skin-implants-list-container" class="flex-horizontal" style="width: 480px">
+        <div id="character-{{_id}}-skin-implants-list" class="implants-list">
+          {{#each system.implants.skin.features}}
+          <label>
+            <input type="checkbox" data-dType="Boolean" name="system.implants.skin.list.{{this}}" value={{this}} {{checked (lookup @root.system.implants.skin.list this)}}>
+            <span class="checkmark">{{localize (lookup @root.system.implants.skin.features_label @index)}}</span>
+          </label>
+          {{/each}}
+        </div>
+        <input type="text" id="character-{{_id}}-implants-skin-description" class="implants-description" name="system.implants.skin.description" value="{{{system.implants.skin.description}}}">
+      </div>
+      <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+      <div id="character-{{_id}}-skeleton" class="flex-horizontal">
+        <p style="font-weight: bold; text-transform: uppercase">{{localize "RITS.SkeletonLabel"}}</p>
+        <p style="font-style: italic; font-size: 12px">{{localize "RITS.SkeletonText"}}</p>
+        <span style="width:150px">
+          <label for="skeleton-type">{{localize "RITS.ImplantsType"}}:</label>
+          <select id="skeleton-type" name="system.implants.skeleton.type">
+            <option value="cybernetic" {{#noteq system.implants.skeleton.type "bioengineered"}} selected {{/noteq}}>{{localize "RITS.Cybernetic"}}</option>
+            <option value="bioengineered" {{#noteq system.implants.skeleton.type "cybernetic"}} selected {{/noteq}}>{{localize "RITS.Bioengineered"}}</option>
+          </select>
+        </span>
+      </div>
+      <div id="character-{{_id}}-skeleton-implants-list-container" class="flex-horizontal" style="width: 480px">
+        <div id="character-{{_id}}-skeleton-implants-list" class="implants-list">
+          {{#each system.implants.skeleton.features}}
+          <label>
+            <input type="checkbox" data-dType="Boolean" name="system.implants.skeleton.list.{{this}}" value={{this}} {{checked (lookup @root.system.implants.skeleton.list this)}}>
+            <span class="checkmark">{{localize (lookup @root.system.implants.skeleton.features_label @index)}}</span>
+          </label>
+          {{/each}}
+        </div>
+        <input type="text" id="character-{{_id}}-implants-skeleton-description" class="implants-description" name="system.implants.skeleton.description" value="{{{system.implants.skeleton.description}}}">
+      </div>
+    </div>
+    
 
       {{!-- Contacts --}}
 	  <div id="character-{{_id}}-contacts" class="tab flex-vertical" data-tab="contacts">

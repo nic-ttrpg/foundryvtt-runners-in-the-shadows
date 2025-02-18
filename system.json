@@ -164,7 +164,7 @@
       "name": "npc",
       "label": "NPCs",
       "system": "runners-in-the-shadows",
-      "path": "./packs/npcs.db",
+      "path": "./packs/npcs",
       "type": "Actor"
     }
   ],

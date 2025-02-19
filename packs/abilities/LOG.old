@@ -1,0 +1,8 @@
+2025/02/19-08:59:02.335878 fd2013e0f040 Recovering log #4
+2025/02/19-08:59:02.342012 fd2013e0f040 Delete type=0 #4
+2025/02/19-08:59:02.342029 fd2013e0f040 Delete type=3 #2
+2025/02/19-11:09:00.410803 fd201160f040 Level-0 table #9: started
+2025/02/19-11:09:00.410818 fd201160f040 Level-0 table #9: 0 bytes OK
+2025/02/19-11:09:00.412984 fd201160f040 Delete type=0 #7
+2025/02/19-11:09:00.415482 fd201160f040 Manual compaction at level-0 from '!items!2qc1PZAj9panLPqG' @ 72057594037927935 : 1 .. '!items.effects!mJONPxVH0pCEkwiv.jt3NilMdJdtABQcp' @ 0 : 0; will stop at (end)
+2025/02/19-11:09:00.415584 fd201160f040 Manual compaction at level-1 from '!items!2qc1PZAj9panLPqG' @ 72057594037927935 : 1 .. '!items.effects!mJONPxVH0pCEkwiv.jt3NilMdJdtABQcp' @ 0 : 0; will stop at (end)

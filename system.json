@@ -108,7 +108,7 @@
       "name": "ability",
       "label": "Abilities",
       "system": "runners-in-the-shadows",
-      "path": "./packs/abilities.db",
+      "path": "./packs/abilities",
       "type": "Item"
     },
     {
